@@ -1,0 +1,36 @@
+{
+  "name": "medusa-source-magento",
+  "version": "0.0.1",
+  "description": "Source plugins that allows users to import data from a Magento store to Medusa",
+  "author": "Shahed Nasser <shahednasser@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "seed": "medusa seed -f ./data/seed.json",
+    "build": "babel src --out-dir . --ignore **/__tests__ --extensions \".ts,.js\"",
+    "start": "medusa develop",
+    "watch": "babel -w src --out-dir . --ignore **/__tests__ --extensions \".ts,.js\"",
+    "prepare": "cross-env NODE_ENV=production npm run build"
+  },
+  "peerDependencies": {
+    "@medusajs/medusa": "^1.5.0",
+    "axios": "^1.1.2",
+    "medusa-interfaces": "^1.3.0",
+    "typeorm": "^0.2.36",
+    "medusa-core-utils": "^1.1.33"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-typescript": "^7.14.5",
+    "babel-preset-medusa-package": "^1.1.19",
+    "cross-env": "^7.0.3"
+  },
+  "repository": "https://github.com/medusajs/medusa-starter-default.git",
+  "keywords": [
+    "medusa-plugin",
+    "medusa-plugin-source"
+  ],
+  "dependencies": {
+    "axios-oauth-1.0a": "^0.3.6"
+  }
+}
