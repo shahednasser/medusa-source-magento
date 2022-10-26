@@ -14,6 +14,7 @@ type InjectedDependencies = {
   productVariantService: ProductVariantService;
   logger: Logger;
   manager: EntityManager;
+  batchJobService: BatchJobService;
 }
 
 class ImportStrategy extends AbstractBatchJobStrategy {
@@ -38,6 +39,7 @@ class ImportStrategy extends AbstractBatchJobStrategy {
     this.magentoCategoryService_ = container.magentoCategoryService;
     this.productVariantService = container.productVariantService;
     this.logger_ = container.logger;
+    this.batchJobService_ = container.batchJobService;
   }
 
   async preProcessBatchJob(batchJobId: string): Promise<void> {
