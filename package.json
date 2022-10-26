@@ -4,6 +4,7 @@
   "description": "Source plugins that allows users to import data from a Magento store to Medusa",
   "author": "Shahed Nasser <shahednasser@gmail.com>",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "seed": "medusa seed -f ./data/seed.json",
     "build": "babel src --out-dir . --ignore **/__tests__ --extensions \".ts,.js\"",
