@@ -68,7 +68,20 @@ const plugins = [
 ];
 ```
 
+### Options
+
+| Name | Description | Required | Default Value|
+-----------------------------------------------|
+| `magento_url` | The URL of your Medusa server. It shouldn't end with a backslash. | true | |
+| `consumer_key` | The Consumer Key of the integration. | true | |
+| `consumer_secret` | The Consumer Secret of the integration. | true | |
+| `access_token` | The Access Token of the integration. | true | |
+| `access_token_secret` | The Access Token Secret of the integration | true | |
+| `image_prefix` | The URL prefix of media files. This is necessary if you don't use Magento's default storage for product images (for example, if you use S3) | false | The URL will be retrieved from Magento. |
+
 ## Use the Plugin
+
+### Server Startup
 
 To use the plugin, just start the Medusa server:
 
@@ -77,3 +90,17 @@ npm start
 ```
 
 The import process will run in the background of the server. Based on how many products you have, it can take some time the first time running it.
+
+### As a Batch Job
+
+You can trigger the import by creating a new batch job using the Create Batch Job API endpoint. You can pass the following in the payload:
+
+```json
+{
+    "type": "import-magento",
+    "context": { },
+    "dry_run": false
+}
+```
+
+This will trigger the import process.

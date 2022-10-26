@@ -11,7 +11,6 @@ export default async (container, options) => {
       },
       dry_run: false
     })
-    // await magentoService.importMagento()
   } catch (err) {
     console.log(err)
   }

@@ -40,7 +40,26 @@ class ImportStrategy extends AbstractBatchJobStrategy {
     this.logger_ = container.logger;
   }
 
+  async preProcessBatchJob(batchJobId: string): Promise<void> {
+    return await this.atomicPhase_(async (transactionManager) => {
+      const batchJob = (await this.batchJobService_
+        .withTransaction(transactionManager)
+        .retrieve(batchJobId))
+  
+      await this.batchJobService_
+        .withTransaction(transactionManager)
+        .update(batchJob, {
+          result: {
+            progress: 0
+          }
+        })
+    })
+  }
+
   async processJob(batchJobId: string): Promise<void> {
+    const batchJob = (await this.batchJobService_
+      .retrieve(batchJobId))
+    
     let store: Store
 
     try {
@@ -67,6 +86,8 @@ class ImportStrategy extends AbstractBatchJobStrategy {
       this.logger_.info(`No categories have been imported or updated.`)
     }
 
+    await this.updateProgress(batchJob, 33)
+
     this.logger_.info('Importing products from Magento...')
 
     //retrieve configurable products
@@ -76,6 +97,8 @@ class ImportStrategy extends AbstractBatchJobStrategy {
       await this.magentoProductService_
         .create(product);
     }
+
+    await this.updateProgress(batchJob, 66)
 
     //retrieve simple products to insert those that don't belong to a configurable product
     const simpleProducts = await this.magentoClientService_.retrieveProducts(MagentoProductTypes.SIMPLE, lastUpdatedTime);
@@ -90,6 +113,8 @@ class ImportStrategy extends AbstractBatchJobStrategy {
     } else {
       this.logger_.info(`No products have been imported or updated.`)
     }
+
+    await this.updateProgress(batchJob, 100)
 
     await this.updateBuildTime(store);
   }
@@ -132,6 +157,15 @@ class ImportStrategy extends AbstractBatchJobStrategy {
     }
 
     await this.storeService_.update(payload)
+  }
+
+  protected async updateProgress (batchJob: BatchJob, progress: number) {
+    await this.batchJobService_
+        .update(batchJob, {
+          result: {
+            progress
+          }
+        })
   }
 
   protected async shouldRetryOnProcessingError(batchJob: BatchJob, err: unknown): Promise<boolean> {
