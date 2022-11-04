@@ -71,7 +71,7 @@ const plugins = [
 ### Options
 
 | Name | Description | Required | Default Value|
------------------------------------------------|
+-------|-------------|----------|--------------|
 | `magento_url` | The URL of your Medusa server. It shouldn't end with a backslash. | true | |
 | `consumer_key` | The Consumer Key of the integration. | true | |
 | `consumer_secret` | The Consumer Secret of the integration. | true | |
