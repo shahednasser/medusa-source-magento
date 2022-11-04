@@ -26,7 +26,7 @@
     "babel-preset-medusa-package": "^1.1.19",
     "cross-env": "^7.0.3"
   },
-  "repository": "https://github.com/medusajs/medusa-starter-default.git",
+  "repository": "https://github.com/shahednasser/medusa-source-magento",
   "keywords": [
     "medusa-plugin",
     "medusa-plugin-source"
