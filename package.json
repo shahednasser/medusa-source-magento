@@ -1,6 +1,6 @@
 {
   "name": "medusa-source-magento",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Source plugins that allows users to import data from a Magento store to Medusa",
   "author": "Shahed Nasser <shahednasser@gmail.com>",
   "license": "MIT",
